@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use this skill, please cite it as below."
+title: "DockingCopilot Skill"
+type: software
+authors:
+  - name: "DockingCopilot Skill Contributors"
+abstract: >-
+  A reproducible molecular docking Copilot Skill for virtual screening
+  workflows: configuration, script generation, parameter validation and
+  result interpretation built on RDKit, Meeko and AutoDock Vina.
+license: MIT
+version: 0.1.0
+date-released: "2026-08-05"
+keywords:
+  - molecular docking
+  - virtual screening
+  - AutoDock Vina
+  - RDKit
+  - cheminformatics

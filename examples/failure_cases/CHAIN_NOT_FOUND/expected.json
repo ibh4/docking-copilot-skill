@@ -1,0 +1,11 @@
+{
+  "case": "CHAIN_NOT_FOUND",
+  "error_code": "CHAIN_NOT_FOUND",
+  "stage": "prepare_receptor",
+  "recoverable": true,
+  "suggested_actions": [
+    "choose from available chains"
+  ],
+  "pytest": "backend/tests/test_failures.py::test_case_chain_not_found",
+  "notes": "样例受体只有链 A；details.available_chains 给出可选链。"
+}

@@ -1,0 +1,297 @@
+{
+  "$defs": {
+    "JobState": {
+      "description": "对接任务的 12 个生命周期状态。",
+      "enum": [
+        "CREATED",
+        "VALIDATING",
+        "PREPARING_LIGAND",
+        "PREPARING_RECEPTOR",
+        "VALIDATING_BOX",
+        "DOCKING",
+        "PARSING",
+        "ANALYZING",
+        "PACKAGING",
+        "SUCCESS",
+        "FAILED",
+        "CANCELLED"
+      ],
+      "title": "JobState",
+      "type": "string"
+    },
+    "LigandResult": {
+      "description": "单分子对接结果。affinity 单位 kcal/mol。",
+      "properties": {
+        "ligand_id": {
+          "title": "Ligand Id",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "SUCCESS",
+            "FAILED"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "best_affinity_kcal_mol": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Best Affinity Kcal Mol"
+        },
+        "poses": {
+          "items": {
+            "$ref": "#/$defs/Pose"
+          },
+          "title": "Poses",
+          "type": "array"
+        },
+        "ligand_efficiency": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "-best_affinity / heavy_atom_count（kcal/mol/重原子，仅辅助指标）",
+          "title": "Ligand Efficiency"
+        },
+        "descriptors": {
+          "additionalProperties": true,
+          "title": "Descriptors",
+          "type": "object"
+        },
+        "preparation_warnings": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Preparation Warnings",
+          "type": "array"
+        },
+        "warnings": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Warnings",
+          "type": "array"
+        },
+        "artifacts": {
+          "additionalProperties": true,
+          "title": "Artifacts",
+          "type": "object"
+        },
+        "provenance": {
+          "additionalProperties": true,
+          "title": "Provenance",
+          "type": "object"
+        },
+        "structured_error": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StructuredError"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "ligand_id",
+        "status"
+      ],
+      "title": "LigandResult",
+      "type": "object"
+    },
+    "Pose": {
+      "description": "单个对接 pose。affinity 单位 kcal/mol，rmsd 单位 Å。",
+      "properties": {
+        "rank": {
+          "title": "Rank",
+          "type": "integer"
+        },
+        "affinity_kcal_mol": {
+          "title": "Affinity Kcal Mol",
+          "type": "number"
+        },
+        "rmsd_lb": {
+          "title": "Rmsd Lb",
+          "type": "number"
+        },
+        "rmsd_ub": {
+          "title": "Rmsd Ub",
+          "type": "number"
+        },
+        "pose_file": {
+          "description": "PDBQT pose 文件（job 目录相对路径）",
+          "title": "Pose File",
+          "type": "string"
+        },
+        "pose_pdb_file": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "PDB pose 文件（job 目录相对路径）",
+          "title": "Pose Pdb File"
+        }
+      },
+      "required": [
+        "rank",
+        "affinity_kcal_mol",
+        "rmsd_lb",
+        "rmsd_ub",
+        "pose_file"
+      ],
+      "title": "Pose",
+      "type": "object"
+    },
+    "StructuredError": {
+      "description": "结构化错误：贯穿所有阶段的统一错误表达，绝不吞错。",
+      "properties": {
+        "error_code": {
+          "title": "Error Code",
+          "type": "string"
+        },
+        "stage": {
+          "title": "Stage",
+          "type": "string"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        },
+        "details": {
+          "additionalProperties": true,
+          "title": "Details",
+          "type": "object"
+        },
+        "recoverable": {
+          "default": false,
+          "title": "Recoverable",
+          "type": "boolean"
+        },
+        "suggested_actions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Suggested Actions",
+          "type": "array"
+        }
+      },
+      "required": [
+        "error_code",
+        "stage",
+        "message"
+      ],
+      "title": "StructuredError",
+      "type": "object"
+    }
+  },
+  "description": "一次对接任务的完整输出（写入 reports/result.json）。",
+  "properties": {
+    "job_id": {
+      "title": "Job Id",
+      "type": "string"
+    },
+    "job_name": {
+      "title": "Job Name",
+      "type": "string"
+    },
+    "status": {
+      "title": "Status",
+      "type": "string"
+    },
+    "state": {
+      "$ref": "#/$defs/JobState"
+    },
+    "results": {
+      "items": {
+        "$ref": "#/$defs/LigandResult"
+      },
+      "title": "Results",
+      "type": "array"
+    },
+    "docking_box": {
+      "additionalProperties": true,
+      "title": "Docking Box",
+      "type": "object"
+    },
+    "docking_parameters": {
+      "additionalProperties": true,
+      "title": "Docking Parameters",
+      "type": "object"
+    },
+    "warnings": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Warnings",
+      "type": "array"
+    },
+    "structured_error": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/StructuredError"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "started_at": {
+      "title": "Started At",
+      "type": "string"
+    },
+    "finished_at": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Finished At"
+    },
+    "runtime_seconds": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Runtime Seconds"
+    }
+  },
+  "required": [
+    "job_id",
+    "job_name",
+    "status",
+    "state",
+    "started_at"
+  ],
+  "title": "DockingOutput",
+  "type": "object"
+}

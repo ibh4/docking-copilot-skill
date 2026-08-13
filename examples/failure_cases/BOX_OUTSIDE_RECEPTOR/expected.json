@@ -1,0 +1,11 @@
+{
+  "case": "BOX_OUTSIDE_RECEPTOR",
+  "error_code": "BOX_OUTSIDE_RECEPTOR",
+  "stage": "validate_box",
+  "recoverable": true,
+  "suggested_actions": [
+    "move the box center toward the receptor bounding box"
+  ],
+  "pytest": "backend/tests/test_failures.py::test_case_box_outside_receptor",
+  "notes": "盒与受体包围盒无交集即拒绝。"
+}

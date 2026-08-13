@@ -1,0 +1,40 @@
+graph TB
+    validate_input["validate_input (VALIDATING)"]
+    prepare_ligand["prepare_ligand (PREPARING_LIGAND)"]
+    analyze_receptor["analyze_receptor (PREPARING_RECEPTOR)"]
+    prepare_receptor["prepare_receptor (PREPARING_RECEPTOR)"]
+    validate_box["validate_box (VALIDATING_BOX)"]
+    configure_vina["configure_vina (DOCKING)"]
+    run_vina["run_vina (DOCKING)"]
+    parse_scores["parse_scores (PARSING)"]
+    export_poses["export_poses (PARSING)"]
+    calculate_metrics["calculate_metrics (ANALYZING)"]
+    interpret["interpret (ANALYZING)"]
+    generate_manifest["generate_manifest (PACKAGING)"]
+    package_artifacts["package_artifacts (PACKAGING)"]
+    validate_input --> prepare_ligand
+    prepare_ligand --> analyze_receptor
+    analyze_receptor --> prepare_receptor
+    prepare_receptor --> validate_box
+    validate_box --> configure_vina
+    configure_vina --> run_vina
+    run_vina --> parse_scores
+    parse_scores --> export_poses
+    export_poses --> calculate_metrics
+    calculate_metrics --> interpret
+    interpret --> generate_manifest
+    generate_manifest --> package_artifacts
+    FAILED[FAILED 结构化错误终态]
+    validate_input -.-> FAILED
+    prepare_ligand -.-> FAILED
+    analyze_receptor -.-> FAILED
+    prepare_receptor -.-> FAILED
+    validate_box -.-> FAILED
+    configure_vina -.-> FAILED
+    run_vina -.-> FAILED
+    parse_scores -.-> FAILED
+    export_poses -.-> FAILED
+    calculate_metrics -.-> FAILED
+    interpret -.-> FAILED
+    generate_manifest -.-> FAILED
+    package_artifacts -.-> FAILED

@@ -1,0 +1,11 @@
+{
+  "case": "INVALID_SMILES",
+  "error_code": "INVALID_SMILES",
+  "stage": "prepare_ligand",
+  "recoverable": false,
+  "suggested_actions": [
+    "check SMILES syntax"
+  ],
+  "pytest": "backend/tests/test_failures.py::test_case_invalid_smiles",
+  "notes": "SMILES 化学合法性在 ligand 准备阶段才被拒绝，输入 JSON 结构本身合法。"
+}

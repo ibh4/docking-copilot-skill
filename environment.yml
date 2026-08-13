@@ -1,0 +1,40 @@
+# DockingCopilot Skill conda 环境（conda-forge，Python 3.11，arm64 macOS）
+# 安装：mamba env create -f environment.yml && conda activate dockskill
+#
+# 以下版本为 2026-08-05 在 Mac mini M4（macOS 26.5.2）上经
+# `mamba create -c conda-forge` 单事务求解并验证通过的版本。
+name: dockskill
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11.15
+  # 计算化学核心
+  - rdkit=2025.09.5
+  - vina=1.2.7
+  - meeko=0.7.1
+  - openbabel=3.1.1
+  # 科学计算
+  - numpy=1.26.4
+  - pandas=3.0.5
+  - scipy=1.17.1
+  - scikit-learn=1.9.0
+  - matplotlib=3.11.0
+  - plotly=6.9.0
+  - networkx=3.6.1
+  - biopython=1.87
+  # 后端
+  - pydantic=2.13.4
+  - fastapi=0.141.1
+  - uvicorn=0.52.1
+  - python-multipart=0.0.32
+  - jinja2=3.1.6
+  - pyyaml=6.0.3
+  - jsonschema=4.26.0
+  - httpx=0.28.1
+  # notebook / 测试 / CLI
+  - jupyterlab=4.6.2
+  - ipykernel=7.3.0
+  - pytest=9.1.1
+  - pytest-cov=7.1.0
+  - rich=15.0.0
+  - typer=0.27.1

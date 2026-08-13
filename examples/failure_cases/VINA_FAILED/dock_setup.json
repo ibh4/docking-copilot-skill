@@ -1,0 +1,21 @@
+{
+  "description": "pytest 直接调用 vina_service.dock_one，receptor 用真实对接产物或样例受体的 pdbqt，ligand 用本目录 ligand_corrupt.pdbqt。",
+  "ligand_pdbqt": "ligand_corrupt.pdbqt",
+  "box_center": [
+    18.3,
+    2.3,
+    21.4
+  ],
+  "box_size": [
+    20.0,
+    20.0,
+    20.0
+  ],
+  "vina_params": {
+    "exhaustiveness": 8,
+    "num_modes": 9,
+    "seed": 42,
+    "cpu": 4,
+    "energy_range": 3.0
+  }
+}

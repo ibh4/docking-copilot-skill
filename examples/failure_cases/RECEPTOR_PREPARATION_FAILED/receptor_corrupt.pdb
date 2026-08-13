@@ -1,0 +1,10 @@
+HEADER    DELIBERATELY CORRUPT RECEPTOR FOR FAILURE CASE
+ATOM      1  N   XXX A   1       1.000   1.000   1.000  1.00  0.00           N
+ATOM      2  CA  XXX A   1       2.000   1.000   1.000  1.00  0.00           C
+ATOM      3  C   XXX A   1       3.000   1.000   1.000  1.00  0.00           C
+ATOM      4  O   XXX A   1       3.500   2.000   1.000  1.00  0.00           O
+ATOM      5  N   XXX A   2       4.000   0.000   1.000  1.00  0.00           N
+ATOM      6  CA  XXX A   2       5.000   0.000   1.000  1.00  0.00           C
+ATOM      7  C   XXX A   2       6.000   0.000   1.000  1.00  0.00           C
+ATOM      8  O   XXX A   2       6.500   1.000   1.000  1.00  0.00           O
+END

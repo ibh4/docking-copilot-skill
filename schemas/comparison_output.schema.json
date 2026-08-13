@@ -1,0 +1,120 @@
+{
+  "$defs": {
+    "ComparisonContext": {
+      "description": "比较上下文：只有同受体/同准备/同 box/同参数才可相对比较。",
+      "properties": {
+        "receptor_sha256": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Receptor Sha256"
+        },
+        "box_mode": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Box Mode"
+        },
+        "box_center": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "number"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Box Center"
+        },
+        "box_size": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "number"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Box Size"
+        },
+        "docking_parameters": {
+          "additionalProperties": true,
+          "title": "Docking Parameters",
+          "type": "object"
+        },
+        "consistent": {
+          "default": true,
+          "title": "Consistent",
+          "type": "boolean"
+        },
+        "notes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Notes",
+          "type": "array"
+        }
+      },
+      "title": "ComparisonContext",
+      "type": "object"
+    }
+  },
+  "description": "批次内相对比较结果（展示性指标，公式见 normalization_method）。",
+  "properties": {
+    "job_id": {
+      "title": "Job Id",
+      "type": "string"
+    },
+    "context": {
+      "$ref": "#/$defs/ComparisonContext"
+    },
+    "ligand_ids": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Ligand Ids",
+      "type": "array"
+    },
+    "metrics": {
+      "additionalProperties": true,
+      "title": "Metrics",
+      "type": "object"
+    },
+    "normalization_method": {
+      "title": "Normalization Method",
+      "type": "string"
+    },
+    "disclaimer": {
+      "default": "相对指标仅用于同一批次、同一受体与同一参数下的展示性排序，不是绝对结合概率、实验自由能或药效。",
+      "title": "Disclaimer",
+      "type": "string"
+    }
+  },
+  "required": [
+    "job_id",
+    "context",
+    "normalization_method"
+  ],
+  "title": "ComparisonOutput",
+  "type": "object"
+}

@@ -1,0 +1,11 @@
+{
+  "case": "INVALID_RECEPTOR",
+  "error_code": "INVALID_RECEPTOR",
+  "stage": "analyze_receptor",
+  "recoverable": false,
+  "suggested_actions": [
+    "provide a non-empty PDB with ATOM records"
+  ],
+  "pytest": "backend/tests/test_failures.py::test_case_invalid_receptor",
+  "notes": "空 PDB 文件在结构分析阶段即被拒绝。"
+}

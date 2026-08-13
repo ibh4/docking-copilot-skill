@@ -1,0 +1,11 @@
+{
+  "case": "RECEPTOR_PREPARATION_FAILED",
+  "error_code": "RECEPTOR_PREPARATION_FAILED",
+  "stage": "prepare_receptor",
+  "recoverable": false,
+  "suggested_actions": [
+    "provide a structurally valid receptor (standard residues)"
+  ],
+  "pytest": "backend/tests/test_failures.py::test_case_receptor_preparation_failed",
+  "notes": "PDB 可被 Biopython 解析（含 ATOM 记录），但全部残基为未知残基名 XXX，meeko 严格模式与 --allow_bad_res 回退均失败。"
+}

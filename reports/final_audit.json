@@ -1,0 +1,60 @@
+{
+  "generated_at": "2026-08-05T04:50:00+00:00",
+  "project": "DockingCopilot Skill",
+  "audit_scope": "提示词 12 提交前质检：仓库完整性 / 敏感信息 / 大文件 / 可复现 / 科学正确性 / 代码安全 / 文档与实现一致",
+  "verdict": {
+    "recommend_submission": true,
+    "pass": 22,
+    "warning": 2,
+    "fail": 0
+  },
+  "pass_items": [
+    { "item": "SKILL.md 主交付物（23 节，命令/路径/字段与仓库逐项一致）", "evidence": "SKILL.md, scripts/pre_submission_check.py" },
+    { "item": "README.md / SUBMISSION.md / LICENSE / CITATION.cff 齐全", "evidence": "仓库根目录" },
+    { "item": "environment.yml / requirements.txt / pyproject.toml 一致（Python 3.11，conda-forge 单事务求解）", "evidence": "docs/ENVIRONMENT.md" },
+    { "item": "4 个 JSON Schema 与 Pydantic 单一事实来源完全一致", "evidence": "reports/pre_submission_check.json（schemas 一致性 PASS）" },
+    { "item": "Notebook 可复现（已执行副本含真实输出，无绝对路径）", "evidence": "notebooks/docking_skill_demo.executed.ipynb" },
+    { "item": "DAG 三件套与 runner 实际步骤、状态机一致（测试断言）", "evidence": "dags/, backend/tests/test_dag.py" },
+    { "item": "失败案例 13 个（≥10），每案例被测试真实运行断言", "evidence": "examples/failure_cases/, backend/tests/test_failures.py" },
+    { "item": "结果解释与归一化公式文档化且机器可查（normalization_method）", "evidence": "docs/RESULT_INTERPRETATION.md, backend/app/services/comparison_service.py" },
+    { "item": "pytest 109/109 通过", "evidence": "reports/test_report.json" },
+    { "item": "make check 输出 DOCKING_SKILL_CHECK_PASS（12 PASS / 0 WARNING / 0 FAIL）", "evidence": "reports/environment_check.json" },
+    { "item": "make example 真实对接输出 RUN_EXAMPLE_PASS（乙醇 -2.776 kcal/mol，seed=42）", "evidence": "reports/example_run.json" },
+    { "item": "可复现双跑 REPRODUCIBILITY_PASS（分数与全部确定性产物哈希一致）", "evidence": "reports/reproducibility_report.json" },
+    { "item": "示例数据小（156KB）、合法、有来源说明", "evidence": "examples/data/DATA_PROVENANCE.md" },
+    { "item": "前端 lint（--max-warnings 0）与 build（tsc+vite）零错误", "evidence": "frontend/package.json 脚本实测" },
+    { "item": "16 个 API 端点、串行队列、job.json 文件状态、统一错误 schema", "evidence": "backend/app/main.py, backend/tests/test_api.py" },
+    { "item": "路径沙箱：ARTIFACT_ACCESS_DENIED 案例真实断言 ../ 穿越被拒", "evidence": "backend/app/utils/files.py, examples/failure_cases/ARTIFACT_ACCESS_DENIED/" },
+    { "item": "无 shell injection：CLI 全部参数列表调用，无 shell=True 用户输入拼接", "evidence": "backend/app/services/vina_service.py, receptor_service.py" },
+    { "item": "CORS 仅 5173、仅监听 127.0.0.1、错误响应不泄漏堆栈", "evidence": "backend/app/main.py" },
+    { "item": "上传 ≤20MB、批量 ≤20、box 上限、超时 300s 全部有测试", "evidence": "backend/app/config.py, backend/tests/" },
+    { "item": "Makefile 自动入口 check/example/test/schemas 齐备且不依赖联网/API Key", "evidence": "Makefile" },
+    { "item": "机器可读证据 JSON 全部合法且引用真实产物", "evidence": "reports/*.json（python -m json.tool 校验）" },
+    { "item": "敏感信息扫描通过：无 /Users 路径、API key、token、密码", "evidence": "reports/pre_submission_check.json" }
+  ],
+  "warning_items": [
+    {
+      "item": "失败案例中 CONFORMER_GENERATION_FAILED 与 NO_POSE 为 mock 触发",
+      "detail": "真实场景难以稳定构造，已在各 expected.json notes 与 SKILL.md §18 如实标注；其余 11 个案例全部真实触发",
+      "evidence": "examples/failure_cases/CONFORMER_GENERATION_FAILED/expected.json, examples/failure_cases/NO_POSE/expected.json"
+    },
+    {
+      "item": "样例受体为课题组自有结构（非 PDB 数据库下载），准备阶段触发 --allow_bad_res 受控回退",
+      "detail": "18 个未匹配模板残基被移除并记录 warning；来源与 sha256 已在 DATA_PROVENANCE.md 说明；该体系仅用于流程演示",
+      "evidence": "examples/data/DATA_PROVENANCE.md, SKILL.md §18"
+    }
+  ],
+  "fail_items": [],
+  "fixes_applied_this_audit": [
+    "SKILL.md 中 3 处 job 相对路径（reports/result.json/.md）改为完整 outputs/<job_id>/reports/ 前缀",
+    "scripts/check_environment.py 磁盘可写检查输出改为仓库相对路径（消除 /Users 绝对路径）",
+    "notebooks 已执行副本（.ipynb/.md）中残留的项目绝对路径相对化",
+    "reports/example_run.json 的 stdout 捕获相对化（_gen_example_run.py）",
+    "outputs/ 清理至 3 个被证据引用的 job 目录（gitignore 内）",
+    "删除项目根临时文件 reports_example_run.txt / pytest_full.log"
+  ],
+  "manual_steps_remaining": [
+    "GitHub 私有仓库邀请评审账号（Qwen3.8-Max 等）——需人工在网页操作",
+    "如需全新机器复核：mamba env create -f environment.yml 后依次 make check/example/test"
+  ]
+}

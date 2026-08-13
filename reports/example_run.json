@@ -1,0 +1,48 @@
+{
+  "generated_at": "2026-08-05T04:33:29.820490+00:00",
+  "command": "make example (python scripts/run_example.py)",
+  "exit_code": 0,
+  "verdict": "PASS",
+  "success_marker": "RUN_EXAMPLE_PASS",
+  "examples": [
+    {
+      "input": "examples/inputs/single_ligand.json",
+      "job_id": "20260805-043323_single_ligand_ethanol",
+      "state": "SUCCESS",
+      "job_dir": "outputs/20260805-043323_single_ligand_ethanol",
+      "best_affinity_kcal_mol": -2.776,
+      "ligand_efficiency": 0.9253,
+      "num_poses": 9,
+      "artifacts_ok": true,
+      "manifest": {
+        "random_seed": 42,
+        "vina_version": "AutoDock Vina v1.2.7",
+        "rdkit_version": "2025.09.5",
+        "meeko_version": "0.7.1",
+        "runtime_seconds": 5.629,
+        "num_artifacts_hashed": 9
+      }
+    },
+    {
+      "input": "examples/inputs/invalid_smiles.json",
+      "job_id": "20260805-043328_invalid_smiles_failure_case",
+      "state": "FAILED",
+      "job_dir": "outputs/20260805-043328_invalid_smiles_failure_case",
+      "structured_error": {
+        "error_code": "INVALID_SMILES",
+        "stage": "prepare_ligand",
+        "message": "RDKit failed to parse SMILES: 'NOT_A_SMILES(('",
+        "details": {
+          "smiles": "NOT_A_SMILES(("
+        },
+        "recoverable": false,
+        "suggested_actions": [
+          "check SMILES syntax"
+        ]
+      },
+      "expected_error_code": "INVALID_SMILES",
+      "match": true
+    }
+  ],
+  "stdout_tail": "sv\n  [OK] outputs/20260805-043323_single_ligand_ethanol/bundle.zip\nmanifest: seed=42 vina=AutoDock Vina v1.2.7 rdkit=2025.09.5 meeko=0.7.1 runtime=5.629s\n\n=== example: invalid_smiles ===\n{\n  \"error_code\": \"INVALID_SMILES\",\n  \"stage\": \"prepare_ligand\",\n  \"message\": \"RDKit failed to parse SMILES: 'NOT_A_SMILES(('\",\n  \"details\": {\n    \"smiles\": \"NOT_A_SMILES((\"\n  },\n  \"recoverable\": false,\n  \"suggested_actions\": [\n    \"check SMILES syntax\"\n  ]\n}\njob dir: outputs/20260805-043328_invalid_smiles_failure_case\n\n=== summary ===\nsingle_ligand docking:  PASS\ninvalid_smiles error:   PASS\nRUN_EXAMPLE_PASS\n"
+}

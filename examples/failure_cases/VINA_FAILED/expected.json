@@ -1,0 +1,11 @@
+{
+  "case": "VINA_FAILED",
+  "error_code": "VINA_FAILED",
+  "stage": "run_vina",
+  "recoverable": false,
+  "suggested_actions": [
+    "check ligand pdbqt integrity; regenerate with meeko"
+  ],
+  "pytest": "backend/tests/test_failures.py::test_case_vina_failed",
+  "notes": "损坏的配体 PDBQT：Vina Python API 解析失败后受控回退 CLI，CLI 同样失败 → VINA_FAILED（双适配器错误均被保留）。"
+}

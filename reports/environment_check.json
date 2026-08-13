@@ -1,0 +1,72 @@
+{
+  "generated_at": "2026-08-06T03:29:50.951335+00:00",
+  "platform": "Darwin 25.5.0 arm64",
+  "python": "3.11.15",
+  "counts": {
+    "PASS": 12,
+    "WARNING": 0,
+    "FAIL": 0
+  },
+  "checks": [
+    {
+      "component": "arm64",
+      "status": "PASS",
+      "detail": "platform.machine()=arm64"
+    },
+    {
+      "component": "Python",
+      "status": "PASS",
+      "detail": "3.11.15 (/opt/homebrew/Caskroom/miniforge/base/envs/dockskill/bin/python)"
+    },
+    {
+      "component": "RDKit",
+      "status": "PASS",
+      "detail": "rdkit 2025.09.5，可解析 SMILES"
+    },
+    {
+      "component": "Vina",
+      "status": "PASS",
+      "detail": "CLI: AutoDock Vina v1.2.7 (/opt/homebrew/Caskroom/miniforge/base/envs/dockskill/bin/vina); Python API 可用"
+    },
+    {
+      "component": "Meeko",
+      "status": "PASS",
+      "detail": "meeko 0.7.1; CLI: /opt/homebrew/Caskroom/miniforge/base/envs/dockskill/bin/mk_prepare_ligand.py"
+    },
+    {
+      "component": "OpenBabel",
+      "status": "PASS",
+      "detail": "Open Babel 3.1.0 -- Nov 30 2023 -- 21:04:48"
+    },
+    {
+      "component": "FastAPI",
+      "status": "PASS",
+      "detail": "fastapi 0.141.1"
+    },
+    {
+      "component": "Jupyter",
+      "status": "PASS",
+      "detail": "kernelspec 'dockskill' 已注册"
+    },
+    {
+      "component": "Node",
+      "status": "PASS",
+      "detail": "v22.22.2"
+    },
+    {
+      "component": "npm",
+      "status": "PASS",
+      "detail": "npm 10.9.7"
+    },
+    {
+      "component": "磁盘可写",
+      "status": "PASS",
+      "detail": "outputs/ 可写（仓库内相对路径：outputs）"
+    },
+    {
+      "component": "目录可创建",
+      "status": "PASS",
+      "detail": "可在 outputs/ 下创建并删除 job 子目录（outputs, reports 存在）"
+    }
+  ]
+}

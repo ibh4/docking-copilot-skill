@@ -1,0 +1,67 @@
+{
+  "generated_at": "2026-08-05T04:32:46.036404+00:00",
+  "input": "examples/inputs/single_ligand.json",
+  "tolerance_kcal_mol": 0.01,
+  "passed": true,
+  "run_a": {
+    "job_id": "20260805-043234_single_ligand_ethanol",
+    "best_affinity_kcal_mol": -2.776
+  },
+  "run_b": {
+    "job_id": "20260805-043240_single_ligand_ethanol",
+    "best_affinity_kcal_mol": -2.776
+  },
+  "checks": [
+    {
+      "name": "input_sha256",
+      "passed": true,
+      "info": "bf5bdcdc03afa17b60f27ce77a90548c6a9e9fdb5b111c4cc46aa2669e7c576d vs bf5bdcdc03afa17b60f27ce77a90548c6a9e9fdb5b111c4cc46aa2669e7c576d"
+    },
+    {
+      "name": "receptor_sha256",
+      "passed": true,
+      "info": "200f137801aebdfeeb49f25895a234eb2913c62d05d84665d96743823dd643bc vs 200f137801aebdfeeb49f25895a234eb2913c62d05d84665d96743823dd643bc"
+    },
+    {
+      "name": "ligand_sha256",
+      "passed": true,
+      "info": "{'ethanol': '7f3581328595cad6a0d5350b682b7c8dfcb57441aece37cdcf74a56de3572a2a'} vs {'ethanol': '7f3581328595cad6a0d5350b682b7c8dfcb57441aece37cdcf74a56de3572a2a'}"
+    },
+    {
+      "name": "artifact_sha256_keys",
+      "passed": true,
+      "info": "6 deterministic artifacts compared"
+    },
+    {
+      "name": "artifact_sha256_values",
+      "passed": true,
+      "info": "all deterministic artifact hashes identical"
+    },
+    {
+      "name": "artifact_structure",
+      "passed": true,
+      "info": "36 files each"
+    },
+    {
+      "name": "parameters_and_seed",
+      "passed": true,
+      "info": "seed=42"
+    },
+    {
+      "name": "result_ligand_ids",
+      "passed": true,
+      "info": "['ethanol'] vs ['ethanol']"
+    },
+    {
+      "name": "affinity[ethanol]",
+      "passed": true,
+      "info": "-2.776 vs -2.776 (|diff|=0.000000 <= 0.01)"
+    },
+    {
+      "name": "pose_affinities[ethanol]",
+      "passed": true,
+      "info": "9 poses, max|diff|=0.000000"
+    }
+  ],
+  "problems": []
+}

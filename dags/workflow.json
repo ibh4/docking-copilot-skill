@@ -1,0 +1,121 @@
+{
+  "name": "docking-copilot-skill-workflow",
+  "description": "SMILES → 3D/PDBQT → 受体准备 → box → Vina → 解析 → 解释 → manifest → 打包",
+  "nodes": [
+    {
+      "id": "validate_input",
+      "label": "校验输入 schema、受体路径与资源上限",
+      "state": "VALIDATING"
+    },
+    {
+      "id": "prepare_ligand",
+      "label": "SMILES 校验、3D 构象、描述符与 PDBQT（Meeko）",
+      "state": "PREPARING_LIGAND"
+    },
+    {
+      "id": "analyze_receptor",
+      "label": "Biopython 结构分析报告",
+      "state": "PREPARING_RECEPTOR"
+    },
+    {
+      "id": "prepare_receptor",
+      "label": "按配置清洗并生成 receptor.pdbqt",
+      "state": "PREPARING_RECEPTOR"
+    },
+    {
+      "id": "validate_box",
+      "label": "搜索盒生成与校验（四模式）",
+      "state": "VALIDATING_BOX"
+    },
+    {
+      "id": "configure_vina",
+      "label": "组装 Vina 参数（双适配器探测）",
+      "state": "DOCKING"
+    },
+    {
+      "id": "run_vina",
+      "label": "AutoDock Vina 对接（Python API 优先，CLI 回退）",
+      "state": "DOCKING"
+    },
+    {
+      "id": "parse_scores",
+      "label": "解析 REMARK VINA RESULT 与 MODEL 分段",
+      "state": "PARSING"
+    },
+    {
+      "id": "export_poses",
+      "label": "切分 pose 并转 PDB",
+      "state": "PARSING"
+    },
+    {
+      "id": "calculate_metrics",
+      "label": "ligand efficiency 与批次内相对指标",
+      "state": "ANALYZING"
+    },
+    {
+      "id": "interpret",
+      "label": "生成 Markdown 解释报告（固定科学措辞）",
+      "state": "ANALYZING"
+    },
+    {
+      "id": "generate_manifest",
+      "label": "组装可复现记录 manifest.json",
+      "state": "PACKAGING"
+    },
+    {
+      "id": "package_artifacts",
+      "label": "打包 bundle.zip（含 top-3 pose）",
+      "state": "PACKAGING"
+    }
+  ],
+  "edges": [
+    {
+      "source": "validate_input",
+      "target": "prepare_ligand"
+    },
+    {
+      "source": "prepare_ligand",
+      "target": "analyze_receptor"
+    },
+    {
+      "source": "analyze_receptor",
+      "target": "prepare_receptor"
+    },
+    {
+      "source": "prepare_receptor",
+      "target": "validate_box"
+    },
+    {
+      "source": "validate_box",
+      "target": "configure_vina"
+    },
+    {
+      "source": "configure_vina",
+      "target": "run_vina"
+    },
+    {
+      "source": "run_vina",
+      "target": "parse_scores"
+    },
+    {
+      "source": "parse_scores",
+      "target": "export_poses"
+    },
+    {
+      "source": "export_poses",
+      "target": "calculate_metrics"
+    },
+    {
+      "source": "calculate_metrics",
+      "target": "interpret"
+    },
+    {
+      "source": "interpret",
+      "target": "generate_manifest"
+    },
+    {
+      "source": "generate_manifest",
+      "target": "package_artifacts"
+    }
+  ]
+}

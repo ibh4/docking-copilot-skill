@@ -1,0 +1,42 @@
+{
+  "job_name": "failure_vina_failed",
+  "ligands": [
+    {
+      "ligand_id": "candidate",
+      "smiles": "CCO"
+    }
+  ],
+  "ligand_preparation": {
+    "add_hydrogens": true,
+    "embed_method": "ETKDGv3",
+    "num_conformers": 10,
+    "optimize_force_field": "MMFF94",
+    "max_iterations": 500,
+    "select_conformer_by": "minimum_force_field_energy",
+    "random_seed": 42
+  },
+  "receptor": {
+    "source": "examples/data/sample_receptor.pdb"
+  },
+  "docking_box": {
+    "mode": "explicit",
+    "center": [
+      18.3,
+      2.3,
+      21.4
+    ],
+    "size": [
+      20.0,
+      20.0,
+      20.0
+    ],
+    "units": "angstrom"
+  },
+  "docking_parameters": {
+    "exhaustiveness": 8,
+    "num_modes": 9,
+    "seed": 42,
+    "cpu": 4,
+    "energy_range": 3.0
+  }
+}

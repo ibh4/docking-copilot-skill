@@ -1,0 +1,41 @@
+{
+  "description": "结构化错误：贯穿所有阶段的统一错误表达，绝不吞错。",
+  "properties": {
+    "error_code": {
+      "title": "Error Code",
+      "type": "string"
+    },
+    "stage": {
+      "title": "Stage",
+      "type": "string"
+    },
+    "message": {
+      "title": "Message",
+      "type": "string"
+    },
+    "details": {
+      "additionalProperties": true,
+      "title": "Details",
+      "type": "object"
+    },
+    "recoverable": {
+      "default": false,
+      "title": "Recoverable",
+      "type": "boolean"
+    },
+    "suggested_actions": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Suggested Actions",
+      "type": "array"
+    }
+  },
+  "required": [
+    "error_code",
+    "stage",
+    "message"
+  ],
+  "title": "StructuredError",
+  "type": "object"
+}

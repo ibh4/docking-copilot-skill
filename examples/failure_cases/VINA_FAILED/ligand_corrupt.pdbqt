@@ -1,0 +1,4 @@
+REMARK  this pdbqt is deliberately corrupted for the VINA_FAILED failure case
+ATOM      1  C1  UNL X   1       0.000   0.000   0.000  1.00  0.00
+BROKEN SECTION {{{ not pdbqt }}}
+ENDROOT_WITHOUT_ROOT

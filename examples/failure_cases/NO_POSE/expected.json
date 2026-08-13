@@ -1,0 +1,11 @@
+{
+  "case": "NO_POSE",
+  "error_code": "NO_POSE",
+  "stage": "parse_scores",
+  "recoverable": true,
+  "suggested_actions": [
+    "check box placement and ligand pdbqt"
+  ],
+  "pytest": "backend/tests/test_failures.py::test_case_no_pose",
+  "notes": "合法且与受体包围盒相交的 box（远离活性位点）。真实运行中 Vina 只要 box 合法总会输出 pose，因此 pytest 通过 mock dock_one 返回无 REMARK VINA RESULT 的输出复现 NO_POSE 路径。"
+}

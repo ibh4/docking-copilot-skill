@@ -1,0 +1,11 @@
+{
+  "case": "ARTIFACT_ACCESS_DENIED",
+  "error_code": "INPUT_VALIDATION_FAILED",
+  "stage": "analyze_receptor",
+  "recoverable": false,
+  "suggested_actions": [
+    "keep receptor source inside the project"
+  ],
+  "pytest": "backend/tests/test_failures.py::test_case_artifact_access_denied",
+  "notes": "受体路径必须位于项目目录内；../ 路径穿越被 safe_resolve 拒绝（PathTraversalError），错误码统一为 INPUT_VALIDATION_FAILED。"
+}

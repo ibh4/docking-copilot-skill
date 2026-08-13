@@ -1,0 +1,883 @@
+/* DockingCopilot Skill 前端样式：手写轻量 CSS，深色科研风格，无重型 UI 框架 */
+
+:root {
+  --bg: #0b0f14;
+  --panel: #121823;
+  --panel-border: #223048;
+  --text: #d7e0ec;
+  --muted: #8494ab;
+  --accent: #4da3ff;
+  --green: #3fbf7f;
+  --amber: #e0a63f;
+  --red: #e05c5c;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  height: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', sans-serif;
+  font-size: 13px;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* ---------- 顶部 ---------- */
+
+.status-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  background: var(--panel);
+  border-bottom: 1px solid var(--panel-border);
+  /* 保证 header 及其按钮位于页面内容/透明覆盖层之上，自动化点击不被遮挡 */
+  position: relative;
+  z-index: 20;
+}
+
+.status-header .btn {
+  position: relative;
+  z-index: 21;
+  pointer-events: auto;
+}
+
+.status-header__brand h1 {
+  margin: 0;
+  font-size: 17px;
+}
+
+.status-header__subtitle {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+/* 顶部导航栏：分子对接 / 项目介绍（state 路由，当前项高亮） */
+.status-header__nav {
+  display: flex;
+  gap: 6px;
+  margin-left: 8px;
+}
+
+.nav-item {
+  background: #1c2942;
+  border: 1px solid #3a5580;
+  color: #c7d5ea;
+  border-radius: 6px;
+  padding: 5px 14px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.nav-item:hover {
+  background: #24344f;
+  border-color: var(--accent);
+  color: #ffffff;
+}
+
+.nav-item--active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #04101f;
+  font-weight: 700;
+}
+
+.nav-item--active:hover {
+  background: var(--accent);
+  color: #04101f;
+}
+
+.status-header__info {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+}
+
+.status-header__version,
+.status-header__env {
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 11px;
+}
+
+.status-header__skill-link {
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: 11px;
+  cursor: help;
+  border-bottom: 1px dashed var(--accent);
+}
+
+.status-header__offline-banner {
+  flex-basis: 100%;
+  background: rgba(224, 92, 92, 0.15);
+  border: 1px solid var(--red);
+  color: var(--red);
+  border-radius: 6px;
+  padding: 6px 10px;
+}
+
+.badge {
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.badge--online {
+  background: rgba(63, 191, 127, 0.15);
+  color: var(--green);
+}
+
+.badge--offline {
+  background: rgba(224, 92, 92, 0.15);
+  color: var(--red);
+}
+
+/* ---------- 主布局 ---------- */
+
+.app__main {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 280px minmax(380px, 1fr) 380px;
+  gap: 10px;
+  padding: 10px 12px 44px;
+  overflow: hidden;
+}
+
+.app__col {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.panel h2 {
+  margin: 0 0 10px;
+  font-size: 13px;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.error-text {
+  color: var(--red);
+}
+
+.warning-text {
+  color: var(--amber);
+}
+
+.cell-mono {
+  font-family: var(--mono);
+  font-size: 11px;
+  word-break: break-all;
+}
+
+/* ---------- 按钮与表单 ---------- */
+
+.btn {
+  background: #1b2534;
+  color: var(--text);
+  border: 1px solid var(--panel-border);
+  border-radius: 6px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.btn:hover:not(:disabled) {
+  border-color: var(--accent);
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btn--primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #04101f;
+  font-weight: 600;
+}
+
+.btn--small {
+  padding: 3px 8px;
+  font-size: 11px;
+}
+
+/* 「运行示例」绿色主按钮（位于工作流步骤条下方） */
+.btn--example {
+  background: #16a34a;
+  border-color: #16a34a;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.btn--example:hover:not(:disabled) {
+  background: #15803d;
+  border-color: #15803d;
+}
+
+.example-launcher {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 4px;
+  padding: 0 2px;
+}
+
+.example-launcher__hint {
+  margin: 0;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.field > span {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.field input,
+.field textarea,
+.field select {
+  background: #0d1420;
+  border: 1px solid var(--panel-border);
+  border-radius: 6px;
+  color: var(--text);
+  padding: 6px 8px;
+  font-size: 12px;
+  font-family: inherit;
+}
+
+.field textarea {
+  font-family: var(--mono);
+  resize: vertical;
+}
+
+.field-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 8px;
+}
+
+.triple-input {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 4px;
+}
+
+.input-panel__actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.check-errors {
+  background: rgba(224, 92, 92, 0.1);
+  border: 1px solid var(--red);
+  color: var(--red);
+  border-radius: 6px;
+  padding: 6px 10px;
+  margin: 8px 0;
+}
+
+.check-errors ul {
+  margin: 4px 0 0;
+  padding-left: 18px;
+}
+
+.check-ok {
+  background: rgba(63, 191, 127, 0.1);
+  border: 1px solid var(--green);
+  color: var(--green);
+  border-radius: 6px;
+  padding: 6px 10px;
+  margin: 8px 0;
+}
+
+/* ---------- 项目介绍页 ---------- */
+
+.intro-page {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 24px 56px;
+  max-width: 960px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.intro-page p {
+  margin: 6px 0;
+  line-height: 1.7;
+}
+
+.intro-page ul {
+  margin: 6px 0;
+  padding-left: 20px;
+  line-height: 1.7;
+}
+
+.intro-page__features {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.intro-page__features li {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: #0d1420;
+  border: 1px solid var(--panel-border);
+  border-radius: 6px;
+  padding: 8px 12px;
+}
+
+.intro-page__features strong {
+  color: var(--accent);
+}
+
+.intro-page__features span {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+/* 介绍页图像与图注 */
+.intro-page__figure {
+  margin: 10px 0 2px;
+  text-align: center;
+}
+
+.intro-page__figure img {
+  max-width: 100%;
+  border: 1px solid var(--panel-border);
+  border-radius: 6px;
+  background: #0d1420;
+}
+
+.intro-page__figure figcaption {
+  color: var(--muted);
+  font-size: 11px;
+  margin-top: 6px;
+  line-height: 1.5;
+}
+
+.intro-page__figures-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 12px;
+}
+
+/* 项目简介双列图像：左靶点蛋白（约原渲染尺寸一半）、右分子推荐流程；窄屏纵向堆叠 */
+.intro-page__figures-duo {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 14px;
+  align-items: center;
+}
+
+.intro-page__figures-duo .intro-page__figure img {
+  width: 100%;
+  max-width: 440px;
+}
+
+/* 介绍页内联 SVG 流程图 */
+.intro-pipeline {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 8px 0;
+}
+
+/* ---------- 分子列表 ---------- */
+
+.molecule-list ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.mol-card {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  text-align: left;
+  background: #0d1420;
+  border: 1px solid var(--panel-border);
+  border-radius: 6px;
+  padding: 6px;
+  cursor: pointer;
+  color: var(--text);
+}
+
+.mol-card--selected {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+
+.mol-card__thumb {
+  width: 52px;
+  height: 52px;
+  background: #fff;
+  border-radius: 4px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.mol-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.mol-card__name {
+  font-weight: 600;
+}
+
+.mol-card__meta {
+  color: var(--muted);
+  font-size: 11px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ---------- 工作流 ---------- */
+
+.workflow-stepper__head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.workflow-stepper__state {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--amber);
+}
+
+.workflow-stepper__job-id {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  margin-left: auto;
+}
+
+.stepper {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 8px 0;
+  padding: 0;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: #0d1420;
+  border: 1px solid var(--panel-border);
+  border-radius: 14px;
+  padding: 4px 10px;
+  color: var(--text);
+  cursor: pointer;
+  font-size: 11px;
+}
+
+.step--selected {
+  box-shadow: 0 0 0 1px var(--accent);
+}
+
+.step--pending {
+  color: var(--muted);
+}
+
+.step--running {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.step--success {
+  border-color: var(--green);
+  color: var(--green);
+}
+
+.step--warning {
+  border-color: var(--amber);
+  color: var(--amber);
+}
+
+.step--failed {
+  border-color: var(--red);
+  color: var(--red);
+}
+
+.workflow-stepper__message {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.step-detail {
+  border-top: 1px dashed var(--panel-border);
+  padding-top: 8px;
+}
+
+.step-detail h3 {
+  margin: 0 0 6px;
+  font-size: 12px;
+}
+
+.artifact-list {
+  margin: 4px 0;
+  padding-left: 18px;
+}
+
+.artifact-list a {
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: 11px;
+}
+
+/* ---------- 3D 视图 ---------- */
+
+.viewer3d {
+  display: flex;
+  flex-direction: column;
+  /* 高度随内容收缩（标签栏 + 信息行 + 半尺寸画布），避免画布下方大片留白 */
+  min-height: auto;
+  /* 沉到中列底部：步骤条在上、3D 面板在下，体现“页面下部”位置；
+     内容超出列高发生滚动时自动退化为紧跟步骤条 */
+  margin-top: auto;
+}
+
+.viewer3d__tabs {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.tab {
+  background: #0d1420;
+  border: 1px solid var(--panel-border);
+  color: var(--muted);
+  border-radius: 6px 6px 0 0;
+  padding: 5px 12px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.tab--active {
+  color: var(--accent);
+  border-color: var(--accent);
+  border-bottom-color: transparent;
+}
+
+.viewer3d__loading {
+  margin-left: auto;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.viewer3d__toolbar {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  /* 与标签栏/画布之间仅留小间距 */
+  margin: 8px 0;
+  font-size: 12px;
+}
+
+.viewer3d__pose-select {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.viewer3d__pose-select select {
+  background: #0d1420;
+  color: var(--text);
+  border: 1px solid var(--panel-border);
+  border-radius: 4px;
+  padding: 3px 6px;
+}
+
+.viewer3d__pose-info {
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 11px;
+}
+
+.viewer3d__canvas {
+  /* 画布缩小为约一半：宽取面板宽度的一半、高减半（原 min-height 320px + flex 拉伸）；
+     在面板内水平居中，不左对齐 */
+  align-self: center;
+  width: 50%;
+  min-width: 280px;
+  height: 160px;
+  margin: 0 auto;
+  border: 1px solid var(--panel-border);
+  border-radius: 6px;
+  overflow: hidden;
+  /* 关键：3Dmol 的 canvas 被其 resize() 设为 position:absolute（top/left 0），
+     容器必须自身定位（relative）否则 canvas 会逃逸到页面左上角悬浮 */
+  position: relative;
+}
+
+.viewer3d__canvas canvas {
+  outline: none;
+  /* canvas 由 3Dmol 绝对定位在容器左上，尺寸由 viewer.resize() 按容器宽高设置 */
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.viewer3d__error {
+  margin: 8px 0 0;
+  font-size: 12px;
+}
+
+/* 窄屏自适应：画布恢复占满面板宽，避免挤压不可用 */
+@media (max-width: 1200px) {
+  .viewer3d__canvas {
+    width: 100%;
+    height: 220px;
+  }
+}
+
+/* ---------- 结果表 ---------- */
+
+.result-table__summary {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+  color: var(--green);
+  font-size: 12px;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 8px 0;
+  font-size: 12px;
+}
+
+.data-table caption {
+  text-align: left;
+  color: var(--muted);
+  font-size: 11px;
+  padding-bottom: 4px;
+}
+
+.data-table th,
+.data-table td {
+  border: 1px solid var(--panel-border);
+  padding: 4px 8px;
+  text-align: left;
+}
+
+.data-table th {
+  background: #0d1420;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.kv-table {
+  border-collapse: collapse;
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.kv-table td {
+  border: 1px solid var(--panel-border);
+  padding: 4px 10px;
+}
+
+.kv-table td:first-child {
+  color: var(--muted);
+  font-family: var(--mono);
+}
+
+.result-table__warnings ul {
+  margin: 4px 0;
+  padding-left: 18px;
+  color: var(--amber);
+}
+
+.result-table__science p {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.result-table__downloads {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+  border-top: 1px dashed var(--panel-border);
+  padding-top: 8px;
+}
+
+.result-table__downloads a {
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: 11px;
+}
+
+/* ---------- 雷达图 ---------- */
+
+.radar-chart__select {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+
+.radar-check {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  cursor: pointer;
+}
+
+.radar-check--current {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.radar-chart__canvas {
+  width: 100%;
+  height: 320px;
+}
+
+.radar-chart__table {
+  display: block;
+  overflow-x: auto;
+}
+
+.radar-chart__fit-bands ul {
+  margin: 4px 0;
+  padding-left: 18px;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.radar-chart__method {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.radar-chart__warning {
+  color: var(--amber);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.radar-chart__downloads {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* ---------- 失败面板 ---------- */
+
+.failure-panel {
+  border-color: var(--red);
+}
+
+.failure-panel h2 {
+  color: var(--red);
+}
+
+.failure-panel__message {
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.failure-panel__actions ul {
+  margin: 4px 0;
+  padding-left: 18px;
+}
+
+.failure-panel details pre {
+  background: #0d1420;
+  border-radius: 6px;
+  padding: 8px;
+  font-size: 11px;
+  overflow-x: auto;
+}
+
+/* ---------- 底部免责声明 ---------- */
+
+.app__disclaimer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #0e1520;
+  border-top: 1px solid var(--panel-border);
+  color: var(--muted);
+  font-size: 11px;
+  text-align: center;
+  padding: 6px 16px;
+  z-index: 10;
+}

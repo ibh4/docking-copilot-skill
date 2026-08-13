@@ -1,0 +1,11 @@
+{
+  "case": "MULTI_FRAGMENT_LIGAND",
+  "error_code": "MULTI_FRAGMENT_LIGAND",
+  "stage": "prepare_ligand",
+  "recoverable": false,
+  "suggested_actions": [
+    "keep the largest fragment or split the input"
+  ],
+  "pytest": "backend/tests/test_failures.py::test_case_multi_fragment_ligand",
+  "notes": "盐/混合物/复合物（多个不相连片段）不支持单分子对接。"
+}

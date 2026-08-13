@@ -1,0 +1,12 @@
+# AI4S Future ScienceSkills Hackathon official sandbox dependencies
+# Runtime: Docker/Linux, 2 CPU / 4 GB RAM / no GPU / 900 s per task.
+# The organizer preinstalls numpy, pandas, scipy, biopython, matplotlib,
+# scikit-learn and other common scientific packages, so they are omitted here.
+# Python 3.11 Linux x86_64 wheels are available for the pinned core packages.
+
+rdkit==2025.9.5
+vina==1.2.7
+meeko==0.7.1
+gemmi>=0.7.3,<0.8
+openbabel-wheel==3.1.1.23
+pydantic>=2.0,<3

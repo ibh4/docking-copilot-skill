@@ -1,0 +1,11 @@
+{
+  "case": "UNSUPPORTED_ELEMENT",
+  "error_code": "UNSUPPORTED_ELEMENT",
+  "stage": "prepare_ligand",
+  "recoverable": false,
+  "suggested_actions": [
+    "use only organic elements H,B,C,N,O,F,Si,P,S,Cl,Br,I"
+  ],
+  "pytest": "backend/tests/test_failures.py::test_case_unsupported_element",
+  "notes": "元素白名单见 backend/app/services/ligand_service.py。"
+}

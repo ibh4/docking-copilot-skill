@@ -1,0 +1,141 @@
+{
+  "_note": "真实运行的 result.json 摘要副本（非手写模拟数据）。job_id 与时间戳因运行而异；分数在固定 seed=42 下可复现（±0.01 kcal/mol）。",
+  "source": {
+    "job_id": "20260805-035906_multiple_ligands_demo",
+    "input": "examples/inputs/multiple_ligands.json",
+    "input_sha256": "a01da52fe5f6666e18b6c5fc6263de4ca3116c3a482f046d97a7d0745b6f0c89",
+    "receptor_sha256": "200f137801aebdfeeb49f25895a234eb2913c62d05d84665d96743823dd643bc",
+    "vina_version": "AutoDock Vina v1.2.7",
+    "rdkit_version": "2025.09.5",
+    "random_seed": 42,
+    "status": "SUCCESS"
+  },
+  "results": [
+    {
+      "ligand_id": "methane",
+      "status": "SUCCESS",
+      "best_affinity_kcal_mol": -0.896,
+      "num_poses": 9,
+      "top3_poses": [
+        {
+          "rank": 1,
+          "affinity_kcal_mol": -0.896,
+          "rmsd_lb": 0.0,
+          "rmsd_ub": 0.0
+        },
+        {
+          "rank": 2,
+          "affinity_kcal_mol": -0.883,
+          "rmsd_lb": 17.78,
+          "rmsd_ub": 17.78
+        },
+        {
+          "rank": 3,
+          "affinity_kcal_mol": -0.869,
+          "rmsd_lb": 19.948,
+          "rmsd_ub": 19.948
+        }
+      ],
+      "descriptors": {
+        "molecular_formula": "CH4",
+        "formal_charge": 0,
+        "heavy_atom_count": 1,
+        "rotatable_bonds": 0,
+        "MolWt": 16.043,
+        "LogP": 0.636,
+        "TPSA": 0.0,
+        "HBD": 0,
+        "HBA": 0,
+        "fraction_csp3": 1.0,
+        "ring_count": 0,
+        "lipinski_violations": 0,
+        "canonical_smiles": "C",
+        "isomeric_smiles": "C"
+      }
+    },
+    {
+      "ligand_id": "benzene",
+      "status": "SUCCESS",
+      "best_affinity_kcal_mol": -4.526,
+      "num_poses": 9,
+      "top3_poses": [
+        {
+          "rank": 1,
+          "affinity_kcal_mol": -4.526,
+          "rmsd_lb": 0.0,
+          "rmsd_ub": 0.0
+        },
+        {
+          "rank": 2,
+          "affinity_kcal_mol": -4.447,
+          "rmsd_lb": 0.319,
+          "rmsd_ub": 2.772
+        },
+        {
+          "rank": 3,
+          "affinity_kcal_mol": -4.412,
+          "rmsd_lb": 0.47,
+          "rmsd_ub": 2.023
+        }
+      ],
+      "descriptors": {
+        "molecular_formula": "C6H6",
+        "formal_charge": 0,
+        "heavy_atom_count": 6,
+        "rotatable_bonds": 0,
+        "MolWt": 78.114,
+        "LogP": 1.687,
+        "TPSA": 0.0,
+        "HBD": 0,
+        "HBA": 0,
+        "fraction_csp3": 0.0,
+        "ring_count": 1,
+        "lipinski_violations": 0,
+        "canonical_smiles": "c1ccccc1",
+        "isomeric_smiles": "c1ccccc1"
+      }
+    },
+    {
+      "ligand_id": "acetic_acid",
+      "status": "SUCCESS",
+      "best_affinity_kcal_mol": -3.542,
+      "num_poses": 9,
+      "top3_poses": [
+        {
+          "rank": 1,
+          "affinity_kcal_mol": -3.542,
+          "rmsd_lb": 0.0,
+          "rmsd_ub": 0.0
+        },
+        {
+          "rank": 2,
+          "affinity_kcal_mol": -3.399,
+          "rmsd_lb": 1.932,
+          "rmsd_ub": 2.13
+        },
+        {
+          "rank": 3,
+          "affinity_kcal_mol": -3.192,
+          "rmsd_lb": 2.198,
+          "rmsd_ub": 2.407
+        }
+      ],
+      "descriptors": {
+        "molecular_formula": "C2H4O2",
+        "formal_charge": 0,
+        "heavy_atom_count": 4,
+        "rotatable_bonds": 0,
+        "MolWt": 60.052,
+        "LogP": 0.091,
+        "TPSA": 37.3,
+        "HBD": 1,
+        "HBA": 1,
+        "fraction_csp3": 0.5,
+        "ring_count": 0,
+        "lipinski_violations": 0,
+        "canonical_smiles": "CC(=O)O",
+        "isomeric_smiles": "CC(=O)O"
+      }
+    }
+  ]
+}

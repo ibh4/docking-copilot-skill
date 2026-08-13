@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyc
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Environments
+.venv/
+venv/
+env/
+
+# Node / frontend
+node_modules/
+frontend/dist/
+frontend/node_modules/
+frontend/package-lock.json
+
+# Runtime outputs (keep directory marker only)
+outputs/*
+!outputs/.gitkeep
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+
+# Env files with real values
+.env
+
+# Vendored binaries are tracked explicitly (vendor/bin/vina),
+# but ignore other vendor artifacts
+vendor/*
+!vendor/bin/
+vendor/bin/*
+!vendor/bin/vina
+!vendor/bin/README.md

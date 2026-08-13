@@ -1,0 +1,67 @@
+{
+  "generated_at": "2026-08-05T04:40:00+00:00",
+  "project": "DockingCopilot Skill",
+  "version": "0.1.0",
+  "track": "AI for Biomedicine",
+  "platform": "macOS arm64 (Apple Silicon), Python 3.11 (conda env: dockskill)",
+  "primary_deliverable": "SKILL.md",
+  "verification_commands": [
+    { "command": "make check", "expected_marker": "DOCKING_SKILL_CHECK_PASS", "evidence": "reports/environment_check.json" },
+    { "command": "make example", "expected_marker": "RUN_EXAMPLE_PASS", "evidence": "reports/example_run.json" },
+    { "command": "make test", "expected_marker": "109 passed", "evidence": "reports/test_report.json" },
+    { "command": "make reproducibility", "expected_marker": "REPRODUCIBILITY_PASS", "evidence": "reports/reproducibility_report.json" }
+  ],
+  "key_results": {
+    "environment_check": { "PASS": 12, "WARNING": 0, "FAIL": 0 },
+    "tests": { "total": 109, "passed": 109, "failed": 0 },
+    "example_single_ligand": {
+      "ligand": "ethanol",
+      "best_affinity_kcal_mol": -2.776,
+      "ligand_efficiency": 0.9253,
+      "num_poses": 9,
+      "seed": 42,
+      "box_center": [18.3, 2.3, 21.4],
+      "box_size": [20, 20, 20]
+    },
+    "example_batch": {
+      "methane": -0.896,
+      "benzene": -4.526,
+      "acetic_acid": -3.542,
+      "note": "kcal/mol，真实运行（seed=42），见 examples/expected_outputs/result_summary.json"
+    },
+    "reproducibility": {
+      "verdict": "REPRODUCIBILITY_PASS",
+      "double_run_best_affinity_kcal_mol": [-2.776, -2.776],
+      "deterministic_artifact_hashes_match": true
+    },
+    "failure_cases": { "count": 13, "mock_triggered": ["CONFORMER_GENERATION_FAILED", "NO_POSE"], "real_triggered": 11 },
+    "frontend": { "lint": "0 errors (--max-warnings 0)", "build": "tsc + vite 零错误" }
+  },
+  "environments": {
+    "rdkit": "2025.09.5",
+    "vina": "1.2.7",
+    "meeko": "0.7.1",
+    "openbabel": "3.1.1",
+    "fastapi": "0.141.1",
+    "python": "3.11.15",
+    "node": "v22.22.2"
+  },
+  "artifacts": {
+    "skill_document": "SKILL.md",
+    "submission_summary": "SUBMISSION.md",
+    "json_schemas": ["schemas/docking_input.schema.json", "schemas/docking_output.schema.json", "schemas/comparison_output.schema.json", "schemas/error.schema.json"],
+    "dag": ["dags/workflow.mmd", "dags/workflow.json", "dags/workflow.svg"],
+    "notebook": ["notebooks/docking_skill_demo.ipynb", "notebooks/docking_skill_demo.executed.ipynb", "notebooks/docking_skill_demo.executed.md"],
+    "failure_cases_dir": "examples/failure_cases/",
+    "docs": ["docs/WORKFLOW.md", "docs/PARAMETER_GUIDE.md", "docs/RESULT_INTERPRETATION.md", "docs/FAILURE_CASES.md", "docs/REPRODUCIBILITY.md", "docs/SCIENTIFIC_LIMITATIONS.md", "docs/SECURITY.md", "docs/ENVIRONMENT.md"],
+    "reports": ["reports/environment_check.json", "reports/reproducibility_report.json", "reports/test_report.json", "reports/example_run.json", "reports/requirement_matrix.json", "reports/submission_summary.json", "reports/pre_submission_check.json", "reports/final_audit.json", "reports/automated_judge_readiness.md"]
+  },
+  "known_limitations": [
+    "docking score 为经验打分：非药效、非精确自由能、不等于 Kd/Ki/IC50，仅同批相对比较有意义",
+    "静态刚性受体、无显式溶剂、质子化采用工具默认策略",
+    "CONFORMER_GENERATION_FAILED 与 NO_POSE 失败案例经 mock 触发（已如实标注）",
+    "样例受体准备触发 Meeko --allow_bad_res 受控回退（18 个残基被移除），warnings 如实记录",
+    "面向 macOS arm64 + conda-forge；批量上限 20 分子"
+  ],
+  "scientific_boundary": "Vina affinity 是经验打分函数与构象搜索的结果，只在同一受体、同一准备、同一 box、同一参数下批内相对比较有意义；不构成药效或自由能结论（docs/SCIENTIFIC_LIMITATIONS.md）。"
+}

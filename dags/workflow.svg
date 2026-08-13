@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="528" height="742" viewBox="0 0 528 742" font-family="Helvetica, Arial, sans-serif">
+<rect width="528" height="742" fill="#ffffff"/>
+<text x="24" y="24" font-size="16" font-weight="bold">DockingCopilot Skill workflow DAG (nodes == runner states)</text>
+<line x1="154" y1="88" x2="154" y2="98" stroke="#444444" stroke-width="1.5"/>
+<polygon points="149,96 159,96 154,104" fill="#444444"/>
+<line x1="154" y1="138" x2="154" y2="148" stroke="#444444" stroke-width="1.5"/>
+<polygon points="149,146 159,146 154,154" fill="#444444"/>
+<line x1="154" y1="188" x2="154" y2="198" stroke="#444444" stroke-width="1.5"/>
+<polygon points="149,196 159,196 154,204" fill="#444444"/>
+<line x1="154" y1="238" x2="154" y2="248" stroke="#444444" stroke-width="1.5"/>
+<polygon points="149,246 159,246 154,254" fill="#444444"/>
+<line x1="154" y1="288" x2="154" y2="298" stroke="#444444" stroke-width="1.5"/>
+<polygon points="149,296 159,296 154,304" fill="#444444"/>
+<line x1="154" y1="338" x2="154" y2="348" stroke="#444444" stroke-width="1.5"/>
+<polygon points="149,346 159,346 154,354" fill="#444444"/>
+<line x1="154" y1="388" x2="154" y2="398" stroke="#444444" stroke-width="1.5"/>
+<polygon points="149,396 159,396 154,404" fill="#444444"/>
+<line x1="154" y1="438" x2="154" y2="448" stroke="#444444" stroke-width="1.5"/>
+<polygon points="149,446 159,446 154,454" fill="#444444"/>
+<line x1="154" y1="488" x2="154" y2="498" stroke="#444444" stroke-width="1.5"/>
+<polygon points="149,496 159,496 154,504" fill="#444444"/>
+<line x1="154" y1="538" x2="154" y2="548" stroke="#444444" stroke-width="1.5"/>
+<polygon points="149,546 159,546 154,554" fill="#444444"/>
+<line x1="154" y1="588" x2="154" y2="598" stroke="#444444" stroke-width="1.5"/>
+<polygon points="149,596 159,596 154,604" fill="#444444"/>
+<line x1="154" y1="638" x2="154" y2="648" stroke="#444444" stroke-width="1.5"/>
+<polygon points="149,646 159,646 154,654" fill="#444444"/>
+<rect x="24" y="54" width="260" height="34" rx="6" fill="#eef4ff" stroke="#3355aa" stroke-width="1.5"/>
+<text x="36" y="76" font-size="13" fill="#111111">validate_input</text>
+<text x="296" y="76" font-size="11" fill="#555555">state: VALIDATING</text>
+<rect x="24" y="104" width="260" height="34" rx="6" fill="#eef4ff" stroke="#3355aa" stroke-width="1.5"/>
+<text x="36" y="126" font-size="13" fill="#111111">prepare_ligand</text>
+<text x="296" y="126" font-size="11" fill="#555555">state: PREPARING_LIGAND</text>
+<rect x="24" y="154" width="260" height="34" rx="6" fill="#eef4ff" stroke="#3355aa" stroke-width="1.5"/>
+<text x="36" y="176" font-size="13" fill="#111111">analyze_receptor</text>
+<text x="296" y="176" font-size="11" fill="#555555">state: PREPARING_RECEPTOR</text>
+<rect x="24" y="204" width="260" height="34" rx="6" fill="#eef4ff" stroke="#3355aa" stroke-width="1.5"/>
+<text x="36" y="226" font-size="13" fill="#111111">prepare_receptor</text>
+<text x="296" y="226" font-size="11" fill="#555555">state: PREPARING_RECEPTOR</text>
+<rect x="24" y="254" width="260" height="34" rx="6" fill="#eef4ff" stroke="#3355aa" stroke-width="1.5"/>
+<text x="36" y="276" font-size="13" fill="#111111">validate_box</text>
+<text x="296" y="276" font-size="11" fill="#555555">state: VALIDATING_BOX</text>
+<rect x="24" y="304" width="260" height="34" rx="6" fill="#eef4ff" stroke="#3355aa" stroke-width="1.5"/>
+<text x="36" y="326" font-size="13" fill="#111111">configure_vina</text>
+<text x="296" y="326" font-size="11" fill="#555555">state: DOCKING</text>
+<rect x="24" y="354" width="260" height="34" rx="6" fill="#eef4ff" stroke="#3355aa" stroke-width="1.5"/>
+<text x="36" y="376" font-size="13" fill="#111111">run_vina</text>
+<text x="296" y="376" font-size="11" fill="#555555">state: DOCKING</text>
+<rect x="24" y="404" width="260" height="34" rx="6" fill="#eef4ff" stroke="#3355aa" stroke-width="1.5"/>
+<text x="36" y="426" font-size="13" fill="#111111">parse_scores</text>
+<text x="296" y="426" font-size="11" fill="#555555">state: PARSING</text>
+<rect x="24" y="454" width="260" height="34" rx="6" fill="#eef4ff" stroke="#3355aa" stroke-width="1.5"/>
+<text x="36" y="476" font-size="13" fill="#111111">export_poses</text>
+<text x="296" y="476" font-size="11" fill="#555555">state: PARSING</text>
+<rect x="24" y="504" width="260" height="34" rx="6" fill="#eef4ff" stroke="#3355aa" stroke-width="1.5"/>
+<text x="36" y="526" font-size="13" fill="#111111">calculate_metrics</text>
+<text x="296" y="526" font-size="11" fill="#555555">state: ANALYZING</text>
+<rect x="24" y="554" width="260" height="34" rx="6" fill="#eef4ff" stroke="#3355aa" stroke-width="1.5"/>
+<text x="36" y="576" font-size="13" fill="#111111">interpret</text>
+<text x="296" y="576" font-size="11" fill="#555555">state: ANALYZING</text>
+<rect x="24" y="604" width="260" height="34" rx="6" fill="#eef4ff" stroke="#3355aa" stroke-width="1.5"/>
+<text x="36" y="626" font-size="13" fill="#111111">generate_manifest</text>
+<text x="296" y="626" font-size="11" fill="#555555">state: PACKAGING</text>
+<rect x="24" y="654" width="260" height="34" rx="6" fill="#eef4ff" stroke="#3355aa" stroke-width="1.5"/>
+<text x="36" y="676" font-size="13" fill="#111111">package_artifacts</text>
+<text x="296" y="676" font-size="11" fill="#555555">state: PACKAGING</text>
+<text x="24" y="730" font-size="11" fill="#666666">任何步骤失败 → FAILED（结构化错误）；终态：SUCCESS / FAILED / CANCELLED</text>
+</svg>

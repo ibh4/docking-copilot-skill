@@ -1,0 +1,360 @@
+{
+  "$defs": {
+    "DockingBox": {
+      "description": "docking 搜索盒（单位 Å），支持四种模式。\n\n- explicit：显式 center/size（center 单位 Å，size 单边长度单位 Å）；\n- reference_ligand：按已知共晶配体残基坐标生成（padding 单位 Å）；\n- residue_list：按指定口袋残基生成（padding 单位 Å）；\n- whole_receptor：全受体包围盒（仅小型测试，附强警告）。",
+      "properties": {
+        "mode": {
+          "default": "explicit",
+          "enum": [
+            "explicit",
+            "reference_ligand",
+            "residue_list",
+            "whole_receptor"
+          ],
+          "title": "Mode",
+          "type": "string"
+        },
+        "center": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "number"
+              },
+              "maxItems": 3,
+              "minItems": 3,
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "盒中心坐标（Å）",
+          "title": "Center"
+        },
+        "size": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "number"
+              },
+              "maxItems": 3,
+              "minItems": 3,
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "盒边长（Å）",
+          "title": "Size"
+        },
+        "reference_ligand_resid": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "参考配体残基标识，如 'LIG' 或 'A/1437'",
+          "title": "Reference Ligand Resid"
+        },
+        "residue_ids": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "口袋残基标识列表，如 ['A/585', 'A/600']",
+          "title": "Residue Ids"
+        },
+        "padding_angstrom": {
+          "default": 8.0,
+          "description": "reference/residue 模式的盒外扩（Å）",
+          "maximum": 12.0,
+          "minimum": 0.0,
+          "title": "Padding Angstrom",
+          "type": "number"
+        },
+        "units": {
+          "const": "angstrom",
+          "default": "angstrom",
+          "title": "Units",
+          "type": "string"
+        }
+      },
+      "title": "DockingBox",
+      "type": "object"
+    },
+    "LigandPreparation": {
+      "description": "小分子 3D 准备参数（默认值与提示词 3 规范一致）。",
+      "properties": {
+        "add_hydrogens": {
+          "default": true,
+          "title": "Add Hydrogens",
+          "type": "boolean"
+        },
+        "embed_method": {
+          "const": "ETKDGv3",
+          "default": "ETKDGv3",
+          "title": "Embed Method",
+          "type": "string"
+        },
+        "num_conformers": {
+          "default": 10,
+          "maximum": 50,
+          "minimum": 1,
+          "title": "Num Conformers",
+          "type": "integer"
+        },
+        "optimize_force_field": {
+          "default": "MMFF94",
+          "enum": [
+            "MMFF94",
+            "UFF"
+          ],
+          "title": "Optimize Force Field",
+          "type": "string"
+        },
+        "max_iterations": {
+          "default": 500,
+          "maximum": 10000,
+          "minimum": 0,
+          "title": "Max Iterations",
+          "type": "integer"
+        },
+        "select_conformer_by": {
+          "const": "minimum_force_field_energy",
+          "default": "minimum_force_field_energy",
+          "title": "Select Conformer By",
+          "type": "string"
+        },
+        "random_seed": {
+          "default": 42,
+          "title": "Random Seed",
+          "type": "integer"
+        }
+      },
+      "title": "LigandPreparation",
+      "type": "object"
+    },
+    "LigandSpec": {
+      "description": "单个小分子输入。",
+      "properties": {
+        "ligand_id": {
+          "maxLength": 64,
+          "minLength": 1,
+          "title": "Ligand Id",
+          "type": "string"
+        },
+        "smiles": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Smiles",
+          "type": "string"
+        },
+        "name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Name"
+        }
+      },
+      "required": [
+        "ligand_id",
+        "smiles"
+      ],
+      "title": "LigandSpec",
+      "type": "object"
+    },
+    "ReceptorConfig": {
+      "description": "受体清洗策略（每个决策可配置、可解释、可追踪，不做无条件删水/删异源）。",
+      "properties": {
+        "selected_chains": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "保留的链 ID 列表；None 表示保留全部链",
+          "title": "Selected Chains"
+        },
+        "keep_waters": {
+          "default": false,
+          "title": "Keep Waters",
+          "type": "boolean"
+        },
+        "keep_cofactors": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Keep Cofactors",
+          "type": "array"
+        },
+        "keep_metals": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Keep Metals",
+          "type": "array"
+        },
+        "remove_original_ligands": {
+          "default": true,
+          "title": "Remove Original Ligands",
+          "type": "boolean"
+        },
+        "alternate_location_policy": {
+          "default": "highest_occupancy",
+          "enum": [
+            "highest_occupancy",
+            "keep_all"
+          ],
+          "title": "Alternate Location Policy",
+          "type": "string"
+        },
+        "missing_residue_policy": {
+          "default": "warn",
+          "enum": [
+            "warn",
+            "error"
+          ],
+          "title": "Missing Residue Policy",
+          "type": "string"
+        },
+        "protonation_policy": {
+          "const": "tool_default",
+          "default": "tool_default",
+          "title": "Protonation Policy",
+          "type": "string"
+        }
+      },
+      "title": "ReceptorConfig",
+      "type": "object"
+    },
+    "ReceptorRef": {
+      "description": "受体引用：仓库内相对路径或 outputs 内 job 产物路径。",
+      "properties": {
+        "source": {
+          "minLength": 1,
+          "title": "Source",
+          "type": "string"
+        },
+        "config": {
+          "$ref": "#/$defs/ReceptorConfig"
+        }
+      },
+      "required": [
+        "source"
+      ],
+      "title": "ReceptorRef",
+      "type": "object"
+    },
+    "VinaParams": {
+      "description": "AutoDock Vina 对接参数。",
+      "properties": {
+        "scoring_function": {
+          "const": "vina",
+          "default": "vina",
+          "title": "Scoring Function",
+          "type": "string"
+        },
+        "exhaustiveness": {
+          "default": 8,
+          "maximum": 32,
+          "minimum": 1,
+          "title": "Exhaustiveness",
+          "type": "integer"
+        },
+        "num_modes": {
+          "default": 9,
+          "maximum": 20,
+          "minimum": 1,
+          "title": "Num Modes",
+          "type": "integer"
+        },
+        "energy_range": {
+          "default": 3.0,
+          "description": "保留 pose 的能量窗口（kcal/mol）",
+          "maximum": 10.0,
+          "minimum": 0.0,
+          "title": "Energy Range",
+          "type": "number"
+        },
+        "cpu": {
+          "default": 4,
+          "maximum": 8,
+          "minimum": 1,
+          "title": "Cpu",
+          "type": "integer"
+        },
+        "seed": {
+          "default": 42,
+          "title": "Seed",
+          "type": "integer"
+        }
+      },
+      "title": "VinaParams",
+      "type": "object"
+    }
+  },
+  "description": "一次对接任务的完整输入。",
+  "properties": {
+    "job_name": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Job Name",
+      "type": "string"
+    },
+    "ligands": {
+      "items": {
+        "$ref": "#/$defs/LigandSpec"
+      },
+      "minItems": 1,
+      "title": "Ligands",
+      "type": "array"
+    },
+    "ligand_preparation": {
+      "$ref": "#/$defs/LigandPreparation"
+    },
+    "receptor": {
+      "$ref": "#/$defs/ReceptorRef"
+    },
+    "docking_box": {
+      "$ref": "#/$defs/DockingBox"
+    },
+    "docking_parameters": {
+      "$ref": "#/$defs/VinaParams"
+    }
+  },
+  "required": [
+    "job_name",
+    "ligands",
+    "receptor"
+  ],
+  "title": "DockingInput",
+  "type": "object"
+}

@@ -1,0 +1,12 @@
+{
+  "case": "BOX_TOO_LARGE",
+  "error_code": "BOX_TOO_LARGE",
+  "stage": "validate_box",
+  "recoverable": true,
+  "suggested_actions": [
+    "reduce padding_angstrom",
+    "select fewer residues"
+  ],
+  "pytest": "backend/tests/test_failures.py::test_case_box_too_large",
+  "notes": "样例受体包围盒约 53×41×54 Å，whole_receptor 模式计算出的边长超过单边上限 30 Å。"
+}

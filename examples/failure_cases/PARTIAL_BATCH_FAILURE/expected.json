@@ -1,0 +1,13 @@
+{
+  "case": "PARTIAL_BATCH_FAILURE",
+  "error_code": "INVALID_SMILES",
+  "stage": "prepare_ligand",
+  "recoverable": false,
+  "partial_batch": true,
+  "job_status": "SUCCESS",
+  "suggested_actions": [
+    "inspect per-ligand structured_error in reports/result.json"
+  ],
+  "pytest": "backend/tests/test_failures.py::test_case_partial_batch_failure",
+  "notes": "批量中合法分子继续对接，任务整体 SUCCESS；失败分子的结构化错误记录在其 LigandResult.structured_error 中。error_code/stage 指失败分子 broken_one 的错误。"
+}

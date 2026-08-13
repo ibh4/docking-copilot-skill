@@ -1,0 +1,31 @@
+{
+  "name": "docking-copilot-skill-frontend",
+  "private": true,
+  "version": "0.3.0",
+  "type": "module",
+  "description": "DockingCopilot Skill 前端网页 Demo（React + Vite + TypeScript + 3Dmol.js + ECharts）",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit -p tsconfig.json && vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext ts,tsx --max-warnings 0"
+  },
+  "dependencies": {
+    "3dmol": "^2.5.1",
+    "echarts": "^5.6.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "^7.18.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "eslint": "^8.57.1",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "eslint-plugin-react-refresh": "^0.4.16",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "case": "CONFORMER_GENERATION_FAILED",
+  "error_code": "CONFORMER_GENERATION_FAILED",
+  "stage": "prepare_ligand",
+  "recoverable": true,
+  "suggested_actions": [
+    "reduce ring complexity or retry with more conformers"
+  ],
+  "pytest": "backend/tests/test_failures.py::test_case_conformer_generation_failed",
+  "notes": "input.json 的 SMILES 本身可嵌入；pytest 通过 mock ligand_service.generate_conformers 触发嵌入失败路径（真实超大刚性分子的嵌入失败难以稳定构造）。"
+}

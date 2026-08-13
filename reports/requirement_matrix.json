@@ -1,0 +1,158 @@
+{
+  "generated_at": "2026-08-05T04:30:00+00:00",
+  "project": "DockingCopilot Skill",
+  "track": "AI for Biomedicine",
+  "source": "赛题要求逐项核对（见 DockingCopilot_Skill_Mac_M4_全部提示词.md 一次性总提示词）",
+  "summary": {
+    "total": 24,
+    "done": 24,
+    "partial": 0,
+    "missing": 0
+  },
+  "requirements": [
+    {
+      "requirement": "最终交付物：完整可复用的 Skill 文档",
+      "status": "done",
+      "evidence": ["SKILL.md"],
+      "verify": "直接阅读 SKILL.md（23 节）"
+    },
+    {
+      "requirement": "可复现 notebook",
+      "status": "done",
+      "evidence": ["notebooks/docking_skill_demo.ipynb", "notebooks/docking_skill_demo.executed.ipynb", "notebooks/docking_skill_demo.executed.md"],
+      "verify": "conda run -n dockskill jupyter nbconvert --to notebook --execute notebooks/docking_skill_demo.ipynb --output docking_skill_demo.executed.ipynb"
+    },
+    {
+      "requirement": "工作流 DAG",
+      "status": "done",
+      "evidence": ["dags/workflow.mmd", "dags/workflow.json", "dags/workflow.svg", "backend/tests/test_dag.py"],
+      "verify": "make dag; make test"
+    },
+    {
+      "requirement": "输入/输出 schema",
+      "status": "done",
+      "evidence": ["schemas/docking_input.schema.json", "schemas/docking_output.schema.json", "schemas/comparison_output.schema.json", "schemas/error.schema.json", "backend/app/schemas.py"],
+      "verify": "make schemas; make test（backend/tests/test_schemas.py）"
+    },
+    {
+      "requirement": "结果解释",
+      "status": "done",
+      "evidence": ["docs/RESULT_INTERPRETATION.md", "backend/app/services/interpretation_service.py"],
+      "verify": "make example（outputs/<job_id>/reports/result.md）"
+    },
+    {
+      "requirement": "失败案例（≥10）",
+      "status": "done（13 个）",
+      "evidence": ["examples/failure_cases/", "docs/FAILURE_CASES.md", "backend/tests/test_failures.py"],
+      "verify": "make failure-cases; make test"
+    },
+    {
+      "requirement": "配置、脚本生成、参数校验",
+      "status": "done",
+      "evidence": ["backend/app/schemas.py", "backend/app/config.py", "docs/PARAMETER_GUIDE.md"],
+      "verify": "make test"
+    },
+    {
+      "requirement": "输入一个或多个 SMILES（≤20 批量）",
+      "status": "done",
+      "evidence": ["examples/inputs/multiple_ligands.json", "backend/app/services/ligand_service.py"],
+      "verify": "make example"
+    },
+    {
+      "requirement": "受体 PDB 分析与准备（链/水/辅因子/金属可配置）",
+      "status": "done",
+      "evidence": ["backend/app/services/receptor_service.py", "backend/tests/test_receptor.py"],
+      "verify": "make test"
+    },
+    {
+      "requirement": "ligand 3D 构建与 SDF/PDB/PDBQT 生成",
+      "status": "done",
+      "evidence": ["backend/app/services/ligand_service.py", "backend/tests/test_ligand.py"],
+      "verify": "make test; make example"
+    },
+    {
+      "requirement": "搜索盒（四模式）与口袋配置校验",
+      "status": "done",
+      "evidence": ["backend/app/services/box_service.py", "backend/tests/test_docking.py"],
+      "verify": "make test"
+    },
+    {
+      "requirement": "AutoDock Vina 运行（API 优先/CLI 回退双适配器）",
+      "status": "done",
+      "evidence": ["backend/app/services/vina_service.py", "examples/failure_cases/VINA_FAILED/"],
+      "verify": "make example; make test"
+    },
+    {
+      "requirement": "affinity/top poses/ligand efficiency/参数/警告输出",
+      "status": "done",
+      "evidence": ["schemas/docking_output.schema.json", "examples/expected_outputs/result_summary.json"],
+      "verify": "make example"
+    },
+    {
+      "requirement": "网页 3D：ligand/receptor/docked complex 显示与候选切换",
+      "status": "done",
+      "evidence": ["frontend/src/components/Viewer3D.tsx", "frontend/src/components/MoleculeList.tsx"],
+      "verify": "make backend; make frontend"
+    },
+    {
+      "requirement": "雷达图比较（方向正确、同批可比、原始数据同显）",
+      "status": "done",
+      "evidence": ["backend/app/services/comparison_service.py", "frontend/src/components/RadarChart.tsx", "backend/tests/test_comparison.py"],
+      "verify": "make test"
+    },
+    {
+      "requirement": "下载 JSON/Markdown/CSV/结构文件/bundle",
+      "status": "done",
+      "evidence": ["backend/app/api/artifacts.py", "backend/tests/test_api.py"],
+      "verify": "make test"
+    },
+    {
+      "requirement": "14 类结构化错误码",
+      "status": "done（ErrorCode 全集 18 个，覆盖全部 14 个必选）",
+      "evidence": ["backend/app/schemas.py（ErrorCode）", "examples/failure_cases/"],
+      "verify": "make test"
+    },
+    {
+      "requirement": "manifest（hashes/versions/seed/parameters/timestamps/artifacts）",
+      "status": "done",
+      "evidence": ["backend/app/services/provenance_service.py", "outputs/<job_id>/manifest.json", "docs/REPRODUCIBILITY.md"],
+      "verify": "make reproducibility"
+    },
+    {
+      "requirement": "真实可复现 docking 示例",
+      "status": "done（乙醇双跑 -2.776 kcal/mol）",
+      "evidence": ["reports/reproducibility_report.json", "reports/example_run.json"],
+      "verify": "make reproducibility; make example"
+    },
+    {
+      "requirement": "测试与证据（pytest 全绿）",
+      "status": "done（109 passed）",
+      "evidence": ["backend/tests/", "reports/test_report.json"],
+      "verify": "make test"
+    },
+    {
+      "requirement": "自动评审入口 make check/example/test/schemas",
+      "status": "done",
+      "evidence": ["Makefile", "SKILL.md §21"],
+      "verify": "make check（DOCKING_SKILL_CHECK_PASS）"
+    },
+    {
+      "requirement": "机器可读证据 reports/*.json",
+      "status": "done",
+      "evidence": ["reports/submission_summary.json", "reports/test_report.json", "reports/example_run.json", "reports/reproducibility_report.json", "reports/requirement_matrix.json"],
+      "verify": "python3 -m json.tool <file>"
+    },
+    {
+      "requirement": "16GB 资源约束（workers=1/并发 1/批量 20/上传 20MB）",
+      "status": "done",
+      "evidence": ["backend/app/config.py", "docs/ENVIRONMENT.md"],
+      "verify": "make check"
+    },
+    {
+      "requirement": "科学边界声明（score 非药效/非自由能/同批可比）",
+      "status": "done",
+      "evidence": ["docs/SCIENTIFIC_LIMITATIONS.md", "SKILL.md §18", "backend/app/services/interpretation_service.py"],
+      "verify": "make example（result.md 固定声明）"
+    }
+  ]
+}
