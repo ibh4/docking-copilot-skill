@@ -12,6 +12,7 @@
   <img alt="3D" src="https://img.shields.io/badge/3D-RDKit%20%2B%203Dmol.js-10B981?style=for-the-badge">
   <img alt="Status" src="https://img.shields.io/badge/Status-Submission%20Ready-22C55E?style=for-the-badge">
 </p>
+<img width="1908" height="785" alt="ff1c2608152a7156554ec02a4dc86e2" src="https://github.com/user-attachments/assets/1bfb23da-b8dc-46c9-894b-08f15abe76d2" />
 
 > **DockingCopilot Skill** 面向虚拟筛选与分子对接科研场景，将传统分散的计算化学步骤组织为 **输入明确、参数受控、过程可追踪、失败可诊断、结果可解释、运行可复现** 的 Scientific Skill。
 
