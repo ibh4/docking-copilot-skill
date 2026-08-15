@@ -1,36 +1,105 @@
 # DockingCopilot Skill
 
-面向 **AI for Biomedicine** 赛道的分子对接 Copilot Skill：输入输出明确、
-参数受控、过程可追踪、失败可诊断、结果可解释、运行可复现的
-虚拟筛选 / 分子对接工作流。
+<p align="center">
+  <b>AI for Biomedicine · Molecular Docking · Reproducible Scientific Skill</b><br>
+  从 SMILES 与蛋白受体出发，将分子 3D 构建、受体准备、参数校验、AutoDock Vina 对接、结果解释与多候选比较封装为一条可复现科研工作流。
+</p>
 
-> 可复现、可解释的分子对接科研工作流 Skill
-> （A reproducible and interpretable molecular docking workflow skill）
+<p align="center">
+  <img alt="Track" src="https://img.shields.io/badge/Track-AI%20for%20Biomedicine-8B5CF6?style=for-the-badge">
+  <img alt="Skill" src="https://img.shields.io/badge/Skill-DockingCopilot-06B6D4?style=for-the-badge">
+  <img alt="Docking" src="https://img.shields.io/badge/Docking-AutoDock%20Vina-F59E0B?style=for-the-badge">
+  <img alt="3D" src="https://img.shields.io/badge/3D-RDKit%20%2B%203Dmol.js-10B981?style=for-the-badge">
+  <img alt="Status" src="https://img.shields.io/badge/Status-Submission%20Ready-22C55E?style=for-the-badge">
+</p>
 
+> **DockingCopilot Skill** 面向虚拟筛选与分子对接科研场景，将传统分散的计算化学步骤组织为 **输入明确、参数受控、过程可追踪、失败可诊断、结果可解释、运行可复现** 的 Scientific Skill。
 
 > [!IMPORTANT]
-> **GitHub 提交路径必须从仓库根目录直接开始：** `skills/docking-copilot/SKILL.md`。
-> 不要上传成 `docking-copilot-skill/skills/docking-copilot/SKILL.md` 或其他多套一层目录的形式。
-> `skills/` 下只保留一个目录 `docking-copilot/`，且该目录名必须与 `SKILL.md` frontmatter 中的 `name: docking-copilot` 完全一致。
-> 上传 GitHub 后建议立即运行：`python skills/docking-copilot/scripts/validate_submission.py`。
+> **官方自动评审入口：** `skills/docking-copilot/SKILL.md`  
+> `skills/` 下仅保留 `docking-copilot/`，且目录名必须与 `SKILL.md` frontmatter 中的 `name: docking-copilot` 完全一致。  
+> 提交前可运行：`python skills/docking-copilot/scripts/validate_submission.py`
 
-核心交付物为 [`skills/docking-copilot/SKILL.md`](skills/docking-copilot/SKILL.md)（官方主 Skill 文档）；本仓库的代码、
-schema、notebook、DAG、失败案例与示例是 Skill 的可验证附件。
-提交摘要见 [`SUBMISSION.md`](SUBMISSION.md)。
+核心交付物：[`skills/docking-copilot/SKILL.md`](skills/docking-copilot/SKILL.md)  
+提交摘要：[`SUBMISSION.md`](SUBMISSION.md)  
+渐进披露参考资料：[`skills/docking-copilot/references/`](skills/docking-copilot/references/)
 
-## 功能概览
+---
 
-- 输入一个或多个 SMILES（≤20），自动完成 3D 构建（ETKDGv3 + MMFF94/UFF）
-  与 PDBQT 准备（Meeko）；
-- 受体分析（Biopython）与按策略清洗（链/水/辅因子/金属可配置）；
-- 搜索盒四模式（explicit / reference_ligand / residue_list / whole_receptor）
-  校验（边长 10–30 Å、体积 ≤27000 Å³）；
-- AutoDock Vina 对接（Python API 子进程优先、CLI 受控回退，固定 seed 可复现）；
-- 结构化结果：affinity、top poses、ligand efficiency、描述符、警告、
-  manifest 哈希与 bundle.zip；
-- 13 个结构化失败案例（错误码/阶段/可恢复性/建议动作，全部有测试回归）；
-- FastAPI（16 端点、串行队列、job.json 文件状态）+ React 前端 Demo
-  （3Dmol.js 三维 + ECharts 雷达图）。
+## 0. 项目一句话
+
+**DockingCopilot Skill** 将 **SMILES + Protein PDB + Docking Configuration** 转换为一条经过校验的可复现对接流程，并输出 **3D 配体、受体结构、Docked Poses、Affinity、Ligand Efficiency、结构化解释、失败诊断、Manifest 与可下载产物**。
+
+它不是一个“只返回一个 Vina 分数”的脚本，而是一个可以被科研人员或上层 Agent 直接复用的 **分子对接 Copilot Skill**。
+
+---
+
+## 1. 核心能力
+
+| 能力 | 实现 |
+|---|---|
+| **Ligand 3D Preparation** | SMILES → RDKit ETKDGv3 → MMFF94 / UFF → SDF / PDB / PDBQT |
+| **Receptor Preparation** | Protein PDB 分析、链选择、水/辅因子/金属策略化处理 |
+| **Docking Box Validation** | explicit / reference_ligand / residue_list / whole_receptor 四种模式 |
+| **Molecular Docking** | AutoDock Vina，固定 seed，可复现单分子与小批量 docking |
+| **Scientific Interpretation** | affinity、pose、ligand efficiency、warning、科学边界与恢复建议 |
+| **Multi-molecule Comparison** | 同条件候选排序、Relative Docking Profile、雷达图对比 |
+| **Reproducibility** | Schema、Notebook、DAG、Manifest、Hash、Version、Failure Cases |
+| **Interactive Demo** | FastAPI + React + 3Dmol.js + ECharts，展示完整计算产物 |
+
+---
+
+## 2. 端到端 Scientific Skill 架构
+
+```mermaid
+%%{init: {"theme": "base", "themeVariables": {
+  "fontFamily": "Inter, Microsoft YaHei, sans-serif",
+  "background": "#FFFFFF",
+  "primaryTextColor": "#1F2937",
+  "lineColor": "#94A3B8",
+  "clusterBkg": "#F8FAFC",
+  "clusterBorder": "#CBD5E1"
+}}}%%
+flowchart LR
+    A[SMILES / Candidates]:::input
+    B[Input Validation<br/>Schema + Rules]:::validate
+    C[RDKit 3D<br/>ETKDGv3 + MMFF/UFF]:::ligand
+    D[Meeko<br/>Ligand PDBQT]:::prep
+
+    E[Protein PDB]:::protein
+    F[Receptor Analysis<br/>Chain / Water / Cofactor]:::receptor
+    G[Docking Box<br/>Center + Size Validation]:::box
+
+    H[AutoDock Vina<br/>Reproducible Docking]:::vina
+    I[Top Poses<br/>Affinity + RMSD]:::pose
+    J[Scientific Interpretation<br/>Warnings + Limits]:::interpret
+    K[Multi-Molecule Compare<br/>Radar + Ranking]:::compare
+    L[Artifacts<br/>JSON + MD + ZIP + Manifest]:::artifact
+
+    A --> B --> C --> D --> H
+    E --> F --> G --> H
+    H --> I --> J
+    J --> K
+    J --> L
+    I --> L
+
+    classDef input fill:#E0F2FE,stroke:#38BDF8,color:#0C4A6E,stroke-width:2px;
+    classDef validate fill:#F3E8FF,stroke:#A855F7,color:#581C87,stroke-width:2px;
+    classDef ligand fill:#DCFCE7,stroke:#22C55E,color:#14532D,stroke-width:2px;
+    classDef prep fill:#CCFBF1,stroke:#14B8A6,color:#134E4A,stroke-width:2px;
+    classDef protein fill:#FEF3C7,stroke:#F59E0B,color:#78350F,stroke-width:2px;
+    classDef receptor fill:#FFEDD5,stroke:#FB923C,color:#7C2D12,stroke-width:2px;
+    classDef box fill:#FCE7F3,stroke:#EC4899,color:#831843,stroke-width:2px;
+    classDef vina fill:#EDE9FE,stroke:#8B5CF6,color:#4C1D95,stroke-width:3px;
+    classDef pose fill:#DBEAFE,stroke:#3B82F6,color:#1E3A8A,stroke-width:2px;
+    classDef interpret fill:#ECFCCB,stroke:#84CC16,color:#365314,stroke-width:2px;
+    classDef compare fill:#CFFAFE,stroke:#06B6D4,color:#164E63,stroke-width:2px;
+    classDef artifact fill:#F1F5F9,stroke:#64748B,color:#334155,stroke-width:2px;
+```
+
+> 这条链路的重点不是“把 Vina 跑起来”，而是把 **分子准备、受体准备、参数合法性、真实计算、结果解释、失败恢复与科研证据链** 组织成一个可被自动评审和二次调用的完整 Skill。
+
+---
 
 ## 快速开始
 
